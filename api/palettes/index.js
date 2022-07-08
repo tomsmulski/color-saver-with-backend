@@ -6,14 +6,20 @@ const handler = async (request, response) => {
   try {
     await connectToMongodb();
 
-    if (request.method === "GET"){
+    if (request.method === "GET") {
+      const searchTerm = request.query.userid
+        ? { user: request.query.userid }
+        : {};
 
-        const searchTerm = request.query.userid ? { user: request.query.userid } : {};
-       
-        const palettes = await Palette.find(searchTerm,null,{limit: 10, sort: { savedAt: -1 }}).populate("user").exec();
-        return response.json(palettes);
+      const palettes = await Palette.find(searchTerm, null, {
+        limit: 10,
+        sort: { savedAt: -1 },
+      })
+        .populate("user")
+        .exec();
 
-    }else if (request.method === "POST") {
+      return response.json(palettes);
+    } else if (request.method === "POST") {
       const newPalette = await Palette.findOneAndReplace(
         { user: mongoose.Types.ObjectId(request.body.user) },
         {
@@ -30,7 +36,7 @@ const handler = async (request, response) => {
 
       const newPal = await newPalette.save();
 
-      console.log(newPal)
+      console.log(newPal);
 
       return response.status(200).json(newPal);
     }
