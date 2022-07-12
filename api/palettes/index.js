@@ -35,9 +35,6 @@ const handler = async (request, response) => {
       );
 
       const newPal = await newPalette.save();
-
-      console.log(newPal);
-
       return response.status(200).json(newPal);
     }
   } catch (error) {
