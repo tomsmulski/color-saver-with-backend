@@ -14,7 +14,7 @@ const handler = async (request, response) => {
         if (user != null) {
           return response.status(200).json(user);
         } else {
-          return response.status(501).json({ message: "User no Exist" });
+          return response.status(404).json({ message: "User no Exist" });
         }
       }
     }
