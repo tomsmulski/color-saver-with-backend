@@ -57,7 +57,13 @@ function App() {
       setCurrentUser(user);
     } catch (err) {
       setCurrentUser(null);
-      alert("Login failed");
+
+      if(err.message === "404"){
+        alert("User not Exist");
+      }else{
+        alert(err);
+      }
+      
     }
   };
 
@@ -76,6 +82,7 @@ function App() {
                 <Button
                   onClick={() => {
                     setCurrentUser(null);
+                    localStorage.removeItem("currentUser");
                     navigate("/");
                   }}
                 >
