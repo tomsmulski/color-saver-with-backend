@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { UserSchema } from "./User";
+
 mongoose.model("User", UserSchema, "users");
 export const PaletteSchema = new mongoose.Schema({
   user: {
